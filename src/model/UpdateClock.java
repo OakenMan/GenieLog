@@ -8,7 +8,6 @@ public class UpdateClock implements Runnable {
 	public void run() {
 		while(true) {
 			Singleton.getInstance().setTime(LocalDateTime.now());
-			System.out.println(Singleton.getInstance().getTime());
 		}
 	}
 
