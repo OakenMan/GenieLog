@@ -13,7 +13,7 @@ public class UpdateClock implements Runnable {
 	@Override
 	public void run() {
 		while(true) {
-			Singleton.getInstance().setTime(LocalDateTime.now());
+			Singleton.getInstance().setTime(Singleton.getInstance().getSource().getTime());
 		}
 	}
 

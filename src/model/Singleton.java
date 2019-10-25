@@ -4,13 +4,16 @@ import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import sources.LocalSource;
+import sources.Source;
 import view.ClockDisplay;
 
 public final class Singleton {
 
 	private static volatile Singleton instance = null;
 
-	private LocalDateTime time = LocalDateTime.now();
+	private Source source = new LocalSource();
+	private LocalDateTime time = source.getTime();
 	private HashMap<ClockDisplay, String> displays = new HashMap<ClockDisplay, String>();
 
 	//-------------------------
@@ -31,9 +34,17 @@ public final class Singleton {
 	}
 	//-------------------------
 
+	public void setSource(Source source) {
+		this.source = source;
+	}
+	
+	public Source getSource() {
+		return source;
+	}
+	
 	public void addDisplay(ClockDisplay clockDisplay, String refreshRate) {
 		displays.put(clockDisplay, refreshRate);
-		System.out.println("On ajoute la clockDisplay " + clockDisplay + " à l'event " + refreshRate);
+//		System.out.println("On ajoute la clockDisplay " + clockDisplay + " à l'event " + refreshRate);
 	}
 
 	public void removeDisplay(ClockDisplay clockDisplay, String refreshRate) {
@@ -47,7 +58,7 @@ public final class Singleton {
 			{
 				Method method;
 				try {
-					System.out.println("On notifie");
+//					System.out.println("On notifie");
 					method = clockDisplay.getClass().getMethod("onChange", LocalDateTime.class);
 					method.invoke(clockDisplay, getTime());
 				} 
