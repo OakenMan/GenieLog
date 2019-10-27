@@ -10,7 +10,7 @@ public class TestFactory {
 
 	public static void main(String[] args) {
 		
-		Singleton.getInstance().setSource(new LocalSource());
+		Singleton.getInstance();
 		
 		try {
 			Thread.sleep(1000);
@@ -20,7 +20,10 @@ public class TestFactory {
 			System.out.println("Erreur, " + e);
 		}
 		
+		Singleton.getInstance().setSource(new LocalSource());
+		
 		TextClockDisplayFactory displayFactory = new TextClockDisplayFactory();
+		
 		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("HH'h'mm");
 		DateTimeFormatter format2 = DateTimeFormatter.ofPattern("hh:mm a ss's'");
 		

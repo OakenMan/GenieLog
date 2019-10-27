@@ -23,6 +23,7 @@ public class ServerSource implements Source {
 		String TIME_SERVER = "time-a.nist.gov";   
 		NTPUDPClient timeClient = new NTPUDPClient();
 		InetAddress inetAddress;
+		
 		try {
 			inetAddress = InetAddress.getByName(TIME_SERVER);
 			timeInfo = timeClient.getTime(inetAddress);
@@ -38,12 +39,14 @@ public class ServerSource implements Source {
 		long returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
 		LocalDateTime time = LocalDateTime.now();
 		System.out.println(returnTime);
+		
 //		try {
 //			Thread.sleep(5000);
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		
 		return time;
 	}
 
