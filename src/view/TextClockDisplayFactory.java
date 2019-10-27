@@ -2,8 +2,14 @@ package view;
 
 import java.time.format.DateTimeFormatter;
 
-import model.Singleton;
+import model.ClockSystem;
 
+/**
+ * Permet de créer un "TextClockDisplay" avec un format et un taux de raffraichissement passés en paramètre
+ * et de l'ajouter automatiquement en tant que listener dans la clockSystem avec le signal écouté correspondant.
+ *
+ * @see TextClockDisplay
+ */
 public class TextClockDisplayFactory {
 
 	public static final int REFRESH_RATE_MILLISECONDS = 1;
@@ -32,6 +38,6 @@ public class TextClockDisplayFactory {
 		
 		ClockDisplay clockDisplay = new TextClockDisplay(format);
 		
-		Singleton.getInstance().addDisplay(clockDisplay, refreshRateString);
+		ClockSystem.getInstance().addDisplay(clockDisplay, refreshRateString);
 	}
 }

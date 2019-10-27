@@ -2,7 +2,7 @@ package tests;
 
 import java.time.format.DateTimeFormatter;
 
-import model.Singleton;
+import model.ClockSystem;
 import sources.LocalSource;
 import view.TextClockDisplayFactory;
 
@@ -10,15 +10,7 @@ public class TestFactory {
 
 	public static void main(String[] args) {
 		
-		Singleton.getInstance();
-		
-		try {
-			Thread.sleep(1000);
-		}
-		catch(Exception e)
-		{
-			System.out.println("Erreur, " + e);
-		}
+		ClockSystem.getInstance().setSource(new LocalSource());
 		
 		Singleton.getInstance().setSource(new LocalSource());
 		
@@ -31,5 +23,4 @@ public class TestFactory {
 		
 		displayFactory.createClock(format2, TextClockDisplayFactory.REFRESH_RATE_SECONDS);
 	}
-
 }

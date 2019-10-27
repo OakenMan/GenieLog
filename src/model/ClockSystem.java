@@ -8,29 +8,29 @@ import sources.LocalSource;
 import sources.Source;
 import view.ClockDisplay;
 
-public final class Singleton {
+public final class ClockSystem {
 
-	private static volatile Singleton instance = null;
+	private static volatile ClockSystem instance = null;
 
 	private Source source = new LocalSource();
 	private LocalDateTime time = source.getTime();
 	private HashMap<ClockDisplay, String> displays = new HashMap<ClockDisplay, String>();
 
 	//-------------------------
-	private Singleton() {
+	private ClockSystem() {
 		super();
 		new Thread(new UpdateClock(this)).start();
 		System.out.println("Clock started");
 	}
 
-	public final static Singleton getInstance() {
-		if(Singleton.instance == null) {
-			synchronized(Singleton.class) {
-				System.out.println("Création du singleton");
-				Singleton.instance = new Singleton();
+	public final static ClockSystem getInstance() {
+		if(ClockSystem.instance == null) {
+			synchronized(ClockSystem.class) {
+				System.out.println("Création du singleton clockSystem");
+				ClockSystem.instance = new ClockSystem();
 			}
 		}
-		return Singleton.instance;
+		return ClockSystem.instance;
 	}
 	//-------------------------
 
