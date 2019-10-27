@@ -1,12 +1,12 @@
 package tests;
 
-import model.Singleton;
+import model.ClockSystem;
 
 public class Test {
 
 	public static void main(String[] args) {
 		
-		Singleton.getInstance();
+		ClockSystem.getInstance();
 
 		try {
 			Thread.sleep(1000);
@@ -25,7 +25,7 @@ public class Test {
 			{
 				System.out.println("Erreur, " + e);
 			}
-			System.out.println(Singleton.getInstance().getTime());
+			System.out.println(ClockSystem.getInstance().getTime());
 		}
 	}
 }

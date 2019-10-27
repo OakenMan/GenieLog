@@ -1,19 +1,26 @@
 package model;
 
-import java.time.LocalDateTime;
-
 public class UpdateClock implements Runnable {
 	
-	Singleton mainClock;
+	ClockSystem mainClock;
 	
-	public UpdateClock(Singleton mainClock) {
+	public UpdateClock(ClockSystem mainClock) {
 		this.mainClock = mainClock;
+		try {
+			Thread.sleep(2000);
+			System.out.println("Thread lancé");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Erreur, " + e);
+		}
+		
 	}
 	
 	@Override
 	public void run() {
 		while(true) {
-			Singleton.getInstance().setTime(Singleton.getInstance().getSource().getTime());
+			ClockSystem.getInstance().setTime(ClockSystem.getInstance().getSource().getTime());
 		}
 	}
 

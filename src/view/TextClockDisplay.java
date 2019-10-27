@@ -11,12 +11,22 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+/**
+ * Display prenant la forme d'une fenêtre graphique affichant l'heure avec un simple label selon un format précis.
+ */
 public class TextClockDisplay extends JFrame implements ClockDisplay {
 
+	/**
+	 * Le format selon lequel afficher l'heure.
+	 */
 	private DateTimeFormatter format;
 	
 	private JLabel timeLabel;
 	
+	/**
+	 * Initialise la fenêtre graphique ainsi que le format à utiliser pour afficher l'heure.
+	 * @param format Le format utilisé pour afficher l'heure.
+	 */
 	public TextClockDisplay(DateTimeFormatter format) {
 		this.format = format;
 		
@@ -36,11 +46,16 @@ public class TextClockDisplay extends JFrame implements ClockDisplay {
 		setVisible(true);
 	}
 	
+	/**
+	 * Affiche l'heure passée en paramètre
+	 */
 	public void displayTime(LocalDateTime time) {
-//		System.out.println(time.format(format));
 		timeLabel.setText(time.format(format));
 	}
 
+	/**
+	 * Fonction à appeler en cas de notification du signal écouté.
+	 */
 	public void onChange(LocalDateTime time) {
 		displayTime(time);
 	}
