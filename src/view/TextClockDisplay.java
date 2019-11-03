@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 /**
- * Display prenant la forme d'une fenêtre graphique affichant l'heure avec un simple label selon un format précis.
+ * Affichage prenant la forme d'une fenêtre graphique affichant l'heure avec un simple label selon un format précis.
  */
 public class TextClockDisplay extends JFrame implements ClockDisplay {
 
@@ -49,13 +49,15 @@ public class TextClockDisplay extends JFrame implements ClockDisplay {
 	/**
 	 * Affiche l'heure passée en paramètre
 	 */
+	@Override
 	public void displayTime(LocalDateTime time) {
 		timeLabel.setText(time.format(format));
 	}
 
 	/**
-	 * Fonction à appeler en cas de notification du signal écouté.
+	 * Méthode appelée en cas de notification du signal écouté
 	 */
+	@Override
 	public void onChange(LocalDateTime time) {
 		displayTime(time);
 	}

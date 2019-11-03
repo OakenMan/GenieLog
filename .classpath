@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/olivier/Bureau/Polytech/QualitéLogicielle/GenieLog/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="/home/tom/eclipse-workspace/ProjetHorloge/commons-net-3.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

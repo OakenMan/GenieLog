@@ -4,48 +4,46 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
 
+/**
+ * Source qui récupère l'heure sur le serveur 'time-a.nist.gov'.
+ * ATTENTION : à cause des limitations de requêtes imposées par le serveur, cette source ne donne l'heure que toutes les 5 secondes
+ * Les affichages liés doivent donc avoir des fréquences de rafraichissement supérieurs à cette valeur.
+ */
 public class ServerSource implements Source {
 
 	private TimeInfo timeInfo;
 	
-	/**
-	 * PROBLEME : comme on appelle getTime() dans une boucle while, le serv nous bloque immediatement
-	 * solution, mettre un Thread.sleep(5000) à la fin de getTime()  --->  marche pas...
-	 */
-	
 	@Override
 	public LocalDateTime getTime() {
-		System.out.println("Source started");
 		String TIME_SERVER = "time-a.nist.gov";   
 		NTPUDPClient timeClient = new NTPUDPClient();
 		InetAddress inetAddress;
 		
+		// Se connecte au serveur et récupère l'heure
 		try {
 			inetAddress = InetAddress.getByName(TIME_SERVER);
 			timeInfo = timeClient.getTime(inetAddress);
-			System.out.println("Time recovered from server");
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();	
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		long returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
-		LocalDateTime time = LocalDateTime.now();
-		System.out.println(returnTime);
+		long serverTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
 		
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		LocalDateTime time = LocalDateTime.ofEpochSecond(serverTime/1000, 0, ZoneOffset.UTC);
+		
+		// Fait une pause de 5s pour ne pas inonder le serveur de requête et se faire bloquer par celui-ci
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		return time;
 	}
